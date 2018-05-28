@@ -2,7 +2,7 @@
 
 # Setting up the environement:
   - Python3 
-  - Tensorflow 1.4 (GPU version)
+  - Tensorflow 1.4+ (GPU version only)
   - Numpy
   - Scipy
   - matplotlib
@@ -12,7 +12,7 @@ To generate new patches for VeDAI, CUHK and NIR-Scene dataset, run the following
 ```sh
 $ ./generate_dataset.sh
 ```
-The program will automatically download the dataset if you run the code for the first time and prepare tfrecord files ready for training. 
+The program will automatically download the dataset if you run the code for the first time and prepare all the necessary tfrecord files for training and testing purposes. 
 
 To use the same patches as in our experiment, run the following command in "data" folder:
 ```sh
@@ -21,20 +21,20 @@ $ ./download_icip_dataset.sh
 
 # Running the code:
 
-All the codes used to train/evaluate the network are located in "network" folder. In case you are interested in re-training the network, the default checkpoint files should be removed first. These includes three folders: vedai, nirscene and cuhk in "network folder". 
+All the codes used to train/evaluate the network are located in "network" folder. In case you are interested in re-training the network, the default checkpoint files should be removed first. They are located in these folders: network/vedai, network/nirscene and network/cuhk. 
 
 # Training:
-To train the network on the three datasets with default parameters, simply run the following command:
+To train the network on the three datasets with default (best) parameters, simply run the following command:
 
 ```sh
 $ python3 matchnet.py --train_test_phase=train --experiment=multimodal
 ```
-Replace matchnet.py with other tsnet.py for training TS-Net. All the tunable parameters are located/listed at the bottom of each model (*.py). For instance, to run Pseudo MatchNet, use: 
+Replace matchnet.py with tsnet.py for training TS-Net. All the tunable parameters can be found at the bottom of each model (*.py). For instance, to run Pseudo MatchNet, use: 
 ```sh
 $ python3 matchnet.py --train_test_phase=train --pseudo  --experiment=multimodal
 ```
 
-In case you are interested in running a single dataset, leave the "experiment" option blank and use "dataset" option. An example to run on vedai is: 
+In case you are interested in running only on a single dataset, leave the "experiment" option blank and use "dataset" option. An example to run on vedai is: 
 ```sh
 $ python3 matchnet.py --train_test_phase=train  --dataset=vedai --lr=0.001 batch_size=128
 ```
